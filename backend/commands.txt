@@ -1,0 +1,6 @@
+Start FASTAPI Server:
+uvicorn app.main:app --reload --port 8000 (--reload: automatische Neuladung bei Code-Änderungen)
+
+
+VITE-REACT-PROJEKT ERSTELLEN
+npm create vite@latest frontend -- --template react
