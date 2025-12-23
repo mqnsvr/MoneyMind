@@ -5,9 +5,10 @@ alembic
 psycopg2-binary
 pydantic
 pydantic_settings
+pydantic[email]
 python-jose[cryptography]
-passlib[bcrypt]
+bcrypt
 python-dotenv
+python-multipart
 pytest
 httpx
-genai

@@ -15,8 +15,8 @@ function RegisterPage() {
         try{
             await api.post("/auth/register", {
                 body: {
-                    email,
-                    password,
+                    email: email,
+                    password: password,
                 },
             });
 

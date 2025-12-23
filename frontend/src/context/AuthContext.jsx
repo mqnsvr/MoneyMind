@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("token"));
   const [user, setUser] = useState(() => {
     const stored = localStorage.getItem("user");
-    return stored ? JSON.parse(storedUser) : null;
+    return stored ? JSON.parse(stored) : null;
   });
 
 

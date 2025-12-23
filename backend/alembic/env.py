@@ -14,7 +14,7 @@ if str(BASE_DIR) not in sys.path:
     sys.path.append(str(BASE_DIR))
 
 from app.core.config import settings
-from app.db.base import Base
+from app.models import Base  # Imports Base + all models
 
 
 # this is the Alembic Config object, which provides

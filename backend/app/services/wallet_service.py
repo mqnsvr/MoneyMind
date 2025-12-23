@@ -2,8 +2,8 @@ from typing import Optional, List
 from sqlalchemy.orm import Session
 
 from app.models.wallet import Wallet
+from app.models.wallet_member import WalletMember
 
-FAKE_CURRENT_USER_ID = 1
 
 def get_wallets_for_user(db: Session, user_id: int) -> List[Wallet]:
     """
@@ -33,7 +33,9 @@ def get_wallet_by_id_for_user(
 def create_wallet_for_user(db:Session, user_id: int, name: str, description: str | None, currency: str) -> Wallet:
     """
     Create a new wallet for a given user.
+    Also creates a WalletMember entry with OWNER role.
     """
+    # 1. Create the wallet
     wallet = Wallet(
         name=name,
         description=description,
@@ -41,6 +43,16 @@ def create_wallet_for_user(db:Session, user_id: int, name: str, description: str
         created_by_id=user_id
     )
     db.add(wallet)
+    db.flush()  # Get the wallet.id without committing
+    
+    # 2. Create WalletMember entry so user can access the wallet
+    member = WalletMember(
+        wallet_id=wallet.id,
+        user_id=user_id,
+        role="OWNER"
+    )
+    db.add(member)
+    
     db.commit()
     db.refresh(wallet)
     return wallet

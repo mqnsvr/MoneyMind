@@ -3,32 +3,44 @@ import { useAuth } from "../context/AuthContext";
 import { api } from "../api/client";
 
 function DashboardPage() {
-  const { token } = useAuth();
-  const [projects, setProjects] = useState([]);
+  const { token, logout } = useAuth();
+  const [wallets, setWallets] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadProjects() {
+    async function loadWallets() {
       try {
-        // Beispiel: GET /projects — in deinem MoneyMind-Projekt wäre das z.B. /wallets
-        const data = await api.get("/projects", { token });
-        setProjects(data);
+        const data = await api.get("/wallets/", { token });
+        setWallets(data);
       } catch (err) {
         setError(err.message);
+      } finally {
+        setLoading(false);
       }
     }
 
-    loadProjects();
+    if (token) {
+      loadWallets();
+    }
   }, [token]);
 
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div style={{ padding: "20px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>💰 MoneyMind Dashboard</h1>
+        <button onClick={logout} style={{ padding: "8px 16px" }}>Abmelden</button>
+      </div>
+      
       {error && <p style={{ color: "red" }}>{error}</p>}
+      {loading && <p>Lädt...</p>}
 
+      <h2>Meine Wallets</h2>
+      {!loading && wallets.length === 0 && <p>Keine Wallets vorhanden.</p>}
+      
       <ul>
-        {projects.map((p) => (
-          <li key={p.id}>{p.name}</li>
+        {wallets.map((w) => (
+          <li key={w.id}>{w.name} ({w.currency})</li>
         ))}
       </ul>
     </div>
