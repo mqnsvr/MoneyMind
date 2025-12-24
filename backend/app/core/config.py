@@ -5,11 +5,15 @@ class Settings(BaseSettings):
     """Loads and validates app config from .env or environment variables."""
 
     # Allowed origins for CORS (Cross-Origin Resource Sharing)
-    # Frontend dev server runs on port 5174 (Vite default)
+    # Frontend dev server commonly runs on ports 5173 or 5174 (Vite).
+    # Include both host and loopback addresses so the dev server (and
+    # alternative ports) can access the API during development.
     backend_cors_origins: list[str] = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
         "http://localhost:5174",
-        "http://127.0.0.1:5174"
-        ]  
+        "http://127.0.0.1:5174",
+    ]
 
     # App metadata
     app_name: str = "MoneyMind"

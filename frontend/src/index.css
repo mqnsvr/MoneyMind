@@ -49,6 +49,13 @@ body {
   opacity: 0.9;
 }
 
+.navbar-moneymind {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #e5e7eb;
+  text-decoration: none;
+}
+
 .navbar-link:hover {
   opacity: 1;
 }
@@ -204,4 +211,101 @@ body {
 
 .auth-link:hover {
   text-decoration: underline;
+}
+
+/* Sidebar styles (used by Sidebar.jsx) */
+.sidebar {
+  width: 260px;
+  background: #0b1220;
+  color: #e5e7eb;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sidebar-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.sidebar-logo {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  color: #0ea5a4;
+}
+.sidebar-brand {
+  font-weight: 800;
+  font-size: 18px;
+}
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #e5e7eb;
+  background: transparent;
+  opacity: 0.85;
+}
+.sidebar-link:hover {
+  opacity: 1;
+}
+.sidebar-link.active {
+  background: #0ea5a4;
+  opacity: 1;
+}
+.sidebar-icon {
+  color: inherit;
+}
+.sidebar-user {
+  margin-top: auto;
+  opacity: 0.9;
+  font-size: 13px;
+}
+.sidebar-logout {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+}
+
+/* User row: email left, logout icon right */
+.sidebar-user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sidebar-email {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #e5e7eb;
+}
+.sidebar-logout-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #e5e7eb;
+  cursor: pointer;
+}
+.sidebar-logout-icon:hover {
+  background: rgba(255,255,255,0.08);
 }

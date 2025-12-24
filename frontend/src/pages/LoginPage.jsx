@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useAuth} from "../context/AuthContext.jsx";
-import {useNavigate, Link} from "react-router-dom";
+import {useNavigate, Link, replace} from "react-router-dom";
 
 const API_BASE_URL = "http://localhost:8000/api/v1";
 
@@ -57,7 +57,7 @@ function LoginPage() {
             login(accessToken, userData);
 
             // 4. Zur Dashboard-Seite weiterleiten
-            navigate("/dashboard"); 
+            navigate("/app/dashboard", { replace: true }); 
         } catch (err) {
             setError(err.message);
         }
