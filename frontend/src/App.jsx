@@ -7,11 +7,13 @@ import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./components/Layout";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <Layout>
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
@@ -25,7 +27,7 @@ function App() {
           }
         />
 
-        <Route path="*" element={<Navigate to="/dashboard" replace/>} />
+        <Route path="*" element={<Navigate to="/" replace/>} />
       </Routes>
     </Layout>
   )

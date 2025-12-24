@@ -1,15 +1,15 @@
 import {useState} from "react";
 import {useAuth} from "../context/AuthContext.jsx";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 
 const API_BASE_URL = "http://localhost:8000/api/v1";
 
 function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
     const {login} = useAuth();
     const navigate = useNavigate();
-    const [error, setError] = useState(null);
 
     async function handleSubmit(event) {
         event.preventDefault(); // verhindert kompletten Seiten-Reload
@@ -29,13 +29,14 @@ function LoginPage() {
                 body: formData.toString(),
             });
 
+            const data = await response.json().catch(() => null);
+
             if (!response.ok) {
-                const data = await response.json().catch(() =>null);
                 throw new Error(data?.detail || "Login failed");
             }
-            const tokenData = await response.json();
+            
 
-            const accessToken = tokenData.access_token;
+            const accessToken = data.access_token;
 
             // 2. User-Daten holen: /auth/me (mit Token)
             const meResponse = await fetch(`${API_BASE_URL}/auth/me`, {
@@ -44,11 +45,13 @@ function LoginPage() {
                 },
             });
 
+            const userData = await meResponse.json().catch(() => null);
+
             if (!meResponse.ok) {
                 throw new Error("Failed to fetch user data");
             }
 
-            const userData = await meResponse.json();
+            
 
             // 3. Im AuthContext speichern
             login(accessToken, userData);
@@ -61,37 +64,56 @@ function LoginPage() {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
-            {error && <p style={{color: "red"}}>{error}</p>}
+        <div className="auth-page">
+            <div className="auth-card">
+                <h1 className="auth-title">
+                    Willkommen zurück
+                </h1>
+                <p className="auth-subtitle">Melde dich mit deiner Email und deinem Passwort an, um deine Wallets zu verwalten.</p>
 
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        E-Mail:
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </label>
+                {error && <p className="auth-error">{error}</p>}
+
+
+                <form className="auth-form" onSubmit={handleSubmit}>
+                    <div className="auth-field">
+                        <label className="auth-label">E-Mail</label>
+                        <input 
+                        className="auth-input" 
+                        type="text"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        placeholder="du@example.com"
+                    />
+                    </div>
+
+                    <div className="auth-field">
+                        <label className="auth-label">Passwort</label>
+                        <input 
+                        className="auth-input" 
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        placeholder="Mindestens 8 Zeichen"
+                    />
+                    </div>
+
+                    <button className="btn-primary" type="submit" style={{ marginTop: '0.5rem', width: '100%'}}>
+                        Einloggen
+                    </button>
+                </form>
+
+                <div className="auth-footer">
+                    Noch kein Konto?{" "}
+                    <Link to="/register" className="auth-link">
+                    Jetzt Registrieren
+                    </Link>
                 </div>
-                <div>
-                    <label>
-                        Passwort:
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </label>
-                </div>
-                <button type="submit">Einloggen</button>
-            </form>
+            </div>
         </div>
     );
 }
+
 
 export default LoginPage;
