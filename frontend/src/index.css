@@ -309,3 +309,70 @@ body {
 .sidebar-logout-icon:hover {
   background: rgba(255,255,255,0.08);
 }
+
+/* Dashboard styles (moved from DashboardPage inline styles) */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashboard-title {
+  color: black;
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.stats-grid {
+  color: black;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid #e6e8f0;
+  color: black;
+}
+
+.card-title {
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.budget-section {
+  margin-top: 10px;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.progress-bar-container {
+  height: 8px;
+  background: #eef2ff;
+  border-radius: 999px;
+  margin-top: 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  background: #0ea5a4;
+}
+
+.recent-placeholder {
+  opacity: 0.7;
+  font-size: 13px;
+}
